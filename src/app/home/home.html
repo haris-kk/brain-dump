@@ -1,8 +1,8 @@
 <div class="shell">
-  <div class="scroll-area">
-    <app-task-list [tasks]="tasks" (taskRemoved)="removeTask($event)" />
-  </div>
   <div class="input-bar">
     <app-task-add (taskAdded)="addTask($event)" />
+  </div>
+  <div class="scroll-area">
+    <app-task-list [tasks]="tasks" (taskRemoved)="removeTask($event)" />
   </div>
 </div>

@@ -8,6 +8,17 @@ import { Component, output } from '@angular/core';
 })
 export class TaskAdd {
   taskAdded = output<string>();
+  hasValue = false;
+
+  onInput(input: HTMLInputElement) {
+    this.hasValue = input.value.length > 0;
+  }
+
+  clear(input: HTMLInputElement) {
+    input.value = '';
+    this.hasValue = false;
+    input.focus();
+  }
 
   submit(input: HTMLInputElement, event: Event) {
     event.preventDefault();
@@ -15,6 +26,7 @@ export class TaskAdd {
     if (title) {
       this.taskAdded.emit(title);
       input.value = '';
+      this.hasValue = false;
     }
   }
 }
