@@ -1,8 +1,14 @@
 <div class="shell">
-  <div class="input-bar">
-    <app-task-add (taskAdded)="addTask($event)" />
-  </div>
   <div class="scroll-area">
     <app-task-list [tasks]="tasks" (taskRemoved)="removeTask($event)" />
   </div>
+
+  <button class="fab" (click)="sheetOpen = true" aria-label="Add task">+</button>
+
+  @if (sheetOpen) {
+    <app-task-sheet
+      (taskAdded)="addTask($event)"
+      (closed)="sheetOpen = false"
+    />
+  }
 </div>

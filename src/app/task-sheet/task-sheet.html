@@ -1,0 +1,33 @@
+<div class="backdrop" (click)="closed.emit()"></div>
+
+<div class="sheet">
+  <div class="handle"></div>
+
+  <form (submit)="submit(taskInput, $event)">
+    <input
+      class="sheet-input"
+      type="text"
+      #taskInput
+      placeholder="Brain dump..."
+      autocorrect="on"
+      autocapitalize="sentences"
+      autocomplete="off"
+    />
+
+    <div class="categories">
+      @for (cat of categories; track cat.value) {
+        <button
+          type="button"
+          class="cat-btn"
+          [class.selected]="selected === cat.value"
+          [style.--cat-color]="cat.color"
+          (click)="selected = cat.value"
+        >
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+
+    <button class="add-btn" type="submit">Add ↑</button>
+  </form>
+</div>

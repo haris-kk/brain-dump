@@ -1,7 +1,10 @@
 <div class="pill-group">
   @for (item of tasks(); track item.title; let i = $index) {
     <div class="pill">
-      <span>{{ item.title }}</span>
+      @if (item.category) {
+        <span class="dot" [style.background]="categoryColors[item.category]"></span>
+      }
+      <span class="title">{{ item.title }}</span>
       <button class="remove-btn" type="button" (click)="taskRemoved.emit(i)" aria-label="Remove task">
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14" fill="currentColor">
           <path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/>

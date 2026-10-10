@@ -1,0 +1,108 @@
+@keyframes slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  animation: fade-in 0.25s ease both;
+  z-index: 10;
+}
+
+.sheet {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 1.5rem 1.5rem 0 0;
+  padding: 0.75rem 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+  animation: slide-up 0.3s cubic-bezier(0.32, 0.72, 0, 1) both;
+  z-index: 11;
+}
+
+.handle {
+  width: 2.5rem;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.15);
+  border-radius: 99px;
+  margin: 0 auto 1.25rem;
+}
+
+.sheet-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  padding: 0.25rem 0 0.75rem;
+  font-size: 1.0625rem;
+  font-family: inherit;
+  color: #1c1c1e;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  margin-bottom: 1.25rem;
+}
+
+.sheet-input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.categories {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+
+.cat-btn {
+  flex: 1;
+  padding: 0.45rem 0;
+  border-radius: 0.5rem;
+  border: 1.5px solid var(--cat-color);
+  background: transparent;
+  color: var(--cat-color);
+  font-size: 0.8125rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.cat-btn.selected {
+  background: var(--cat-color);
+  color: white;
+}
+
+.cat-btn:active {
+  transform: scale(0.94);
+}
+
+.add-btn {
+  width: 100%;
+  padding: 0.85rem;
+  border-radius: 0.75rem;
+  border: none;
+  background: #007AFF;
+  color: white;
+  font-size: 1rem;
+  font-family: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity 0.15s ease, transform 0.1s ease;
+}
+
+.add-btn:active {
+  opacity: 0.85;
+  transform: scale(0.98);
+}

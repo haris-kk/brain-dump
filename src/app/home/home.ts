@@ -1,24 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Dump } from '../dump/dump.model';
-import { TaskAdd } from '../task-add/task-add';
+import { Dump, DumpCategory } from '../dump/dump.model';
 import { TaskList } from '../task-list/task-list';
+import { TaskSheet } from '../task-sheet/task-sheet';
 
 @Component({
   selector: 'app-home',
-  imports: [TaskAdd, TaskList],
+  imports: [TaskList, TaskSheet],
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
 export class Home implements OnInit {
-  public tasks: Dump[] = [];
+  tasks: Dump[] = [];
+  sheetOpen = false;
 
   ngOnInit() {
     const stored = localStorage.getItem('tasks');
     if (stored) this.tasks = JSON.parse(stored);
   }
 
-  addTask(title: string) {
-    this.tasks = [...this.tasks, { title }];
+  addTask(event: { title: string; category?: DumpCategory }) {
+    this.tasks = [...this.tasks, { title: event.title, category: event.category }];
     localStorage.setItem('tasks', JSON.stringify(this.tasks));
   }
 

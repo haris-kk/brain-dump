@@ -58,6 +58,21 @@
 .pill-group .pill:nth-child(6n + 5),
 .pill-group .pill:nth-child(6n + 6) { --pill-accent: var(--hot-red); }
 
+.dot {
+  flex-shrink: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.title {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .remove-btn {
   display: flex;
   align-items: center;
