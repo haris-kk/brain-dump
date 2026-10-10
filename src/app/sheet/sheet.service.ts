@@ -26,8 +26,8 @@ export class SheetService {
 
     // 2. wire up outputs before attaching
     this.sheetRef.instance.closed.subscribe(() => this.close());
-    this.sheetRef.instance.taskAdded.subscribe(({ title, category }) => {
-      this.facade.addTask(title, category);
+    this.sheetRef.instance.taskAdded.subscribe(({ title, category, duration, date, link }) => {
+      this.facade.addTask(title, category, duration, date, link);
     });
 
     // 3. tell Angular to watch it for changes

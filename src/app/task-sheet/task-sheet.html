@@ -19,14 +19,48 @@
         <button
           type="button"
           class="cat-btn"
-          [class.selected]="selected === cat.value"
+          [class.selected]="selectedCategory === cat.value"
           [style.--cat-color]="cat.color"
-          (click)="selected = cat.value"
+          (click)="selectedCategory = selectedCategory === cat.value ? undefined : cat.value"
         >
           {{ cat.label }}
         </button>
       }
     </div>
+
+    <button class="details-toggle" type="button" (click)="showDetails = !showDetails">
+      {{ showDetails ? '− Less' : '+ Add details' }}
+    </button>
+
+    @if (showDetails) {
+      <div class="details">
+        <div class="detail-row">
+          <label class="detail-label">Date</label>
+          <input class="detail-input date-input" type="date" [value]="detailDate" (change)="detailDate = $any($event.target).value" />
+        </div>
+
+        <div class="detail-row">
+          <label class="detail-label">Duration</label>
+          <div class="duration-btns">
+            @for (d of durations; track d.value) {
+              <button
+                type="button"
+                class="dur-btn"
+                [class.selected]="selectedDuration === d.value"
+                (click)="selectedDuration = selectedDuration === d.value ? undefined : d.value"
+              >
+                {{ d.label }}
+              </button>
+            }
+          </div>
+        </div>
+
+        <div class="detail-row">
+          <label class="detail-label">Link</label>
+          <input class="detail-input" type="url" [value]="detailLink" (input)="detailLink = $any($event.target).value" placeholder="https://..." />
+        </div>
+      </div>
+    }
 
     <button class="add-btn" type="submit">Add ↑</button>
   </form>

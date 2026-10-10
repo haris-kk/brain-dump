@@ -7,10 +7,13 @@ export const enum DumpType {
 }
 
 export type DumpCategory = 'work' | 'growth' | 'chore' | 'health';
+export type DumpDuration = '30min' | '1hr' | '2hr' | '4hr';
 
 export interface Dump {
   title: string;
   category?: DumpCategory;
-  type?: DumpType;
+  duration?: DumpDuration;
+  date?: string;
   link?: string;
+  type?: DumpType;
 }

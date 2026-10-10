@@ -1,5 +1,5 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import { Dump, DumpCategory } from './dump.model';
+import { Dump, DumpCategory, DumpDuration } from './dump.model';
 
 @Injectable({ providedIn: 'root' })
 export class DumpFacade {
@@ -26,9 +26,9 @@ export class DumpFacade {
   openSheet()  { this.sheetOpen.set(true);  }
   closeSheet() { this.sheetOpen.set(false); }
 
-  addTask(title: string, category?: DumpCategory) {
+  addTask(title: string, category?: DumpCategory, duration?: DumpDuration, date?: string, link?: string) {
     // update() — use when new value depends on previous value
-    this.tasks.update(current => [...current, { title, category }]);
+    this.tasks.update(current => [...current, { title, category, duration, date, link }]);
   }
 
   removeTask(index: number) {

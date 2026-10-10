@@ -8,6 +8,11 @@
   to   { opacity: 1; }
 }
 
+@keyframes expand {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 .backdrop {
   position: fixed;
   inset: 0;
@@ -58,7 +63,7 @@
 .categories {
   display: flex;
   gap: 0.5rem;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0.75rem;
 }
 
 .cat-btn {
@@ -85,6 +90,118 @@
 .cat-btn:active {
   transform: scale(0.94);
 }
+
+/* details toggle */
+
+.details-toggle {
+  display: block;
+  width: 100%;
+  padding: 0.6rem 0;
+  margin-bottom: 0.75rem;
+  background: none;
+  border: none;
+  color: #007AFF;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  font-weight: 500;
+  text-align: left;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: opacity 0.15s ease;
+}
+
+.details-toggle:active {
+  opacity: 0.6;
+}
+
+/* collapsible details section */
+
+.details {
+  background: #f2f2f7;
+  border-radius: 0.875rem;
+  padding: 0.25rem 0;
+  margin-bottom: 1rem;
+  animation: expand 0.2s ease both;
+}
+
+.detail-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.7rem 1rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.detail-row:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #1c1c1e;
+  font-weight: 500;
+  width: 4.5rem;
+  flex-shrink: 0;
+}
+
+.detail-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 0.9375rem;
+  font-family: inherit;
+  color: #1c1c1e;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  min-width: 0;
+}
+
+.detail-input::placeholder {
+  color: rgba(0, 0, 0, 0.3);
+}
+
+.date-input::-webkit-date-and-time-value {
+  text-align: left;
+}
+
+/* duration buttons */
+
+.duration-btns {
+  display: flex;
+  gap: 0.375rem;
+  flex: 1;
+}
+
+.dur-btn {
+  flex: 1;
+  padding: 0.35rem 0;
+  border-radius: 0.375rem;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  background: white;
+  color: #1c1c1e;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.dur-btn.selected {
+  background: #1c1c1e;
+  color: white;
+  border-color: #1c1c1e;
+}
+
+.dur-btn:active {
+  transform: scale(0.93);
+}
+
+/* add button */
 
 .add-btn {
   width: 100%;
