@@ -1,12 +1,12 @@
 <div class="pill-group">
-  @for (item of tasks(); track item.title; let i = $index) {
+  @for (item of displayTasks(); track item.task.title; let i = $index) {
     <div class="pill" (click)="taskEdit.emit(i)">
-      @if (item.category) {
-        <span class="dot" [style.background]="categoryColors[item.category]"></span>
+      @if (item.task.category) {
+        <span class="dot" [style.background]="categoryColors[item.task.category]"></span>
       }
-      <span class="title">{{ item.title }}</span>
-      @if (item.date) {
-        <span class="date-tag">{{ formatDate(item.date) }}</span>
+      <span class="title">{{ item.task.title }}</span>
+      @if (item.formattedDate) {
+        <span class="date-tag">{{ item.formattedDate }}</span>
       }
       <button class="remove-btn" type="button" (click)="$event.stopPropagation(); taskRemoved.emit(i)" aria-label="Remove task">
         <svg xmlns="http://www.w3.org/2000/svg" height="14" viewBox="0 -960 960 960" width="14" fill="currentColor">

@@ -10,11 +10,11 @@
       </div>
 
       <div class="task-list">
-        @for (task of group.tasks; track task.title) {
+        @for (item of group.tasks; track item.task.title) {
           <div class="task-row">
-            <span class="task-title">{{ task.title }}</span>
-            @if (task.date) {
-              <span class="task-date">{{ formatDate(task.date) }}</span>
+            <span class="task-title">{{ item.task.title }}</span>
+            @if (item.formattedDate) {
+              <span class="task-date">{{ item.formattedDate }}</span>
             }
           </div>
         }

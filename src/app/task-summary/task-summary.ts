@@ -1,11 +1,16 @@
 import { Component, computed, input } from '@angular/core';
 import { Dump, DumpCategory } from '../dump/dump.model';
 
+interface DisplayTask {
+  task: Dump;
+  formattedDate: string | null;
+}
+
 interface Group {
   category: DumpCategory | 'other';
   label: string;
   color: string;
-  tasks: Dump[];
+  tasks: DisplayTask[];
 }
 
 const CATEGORY_META: Record<string, { label: string; color: string }> = {
@@ -33,11 +38,14 @@ export class TaskSummary {
       return 0;
     });
 
-    const map = new Map<string, Dump[]>();
+    const map = new Map<string, DisplayTask[]>();
     for (const t of sorted) {
       const key = t.category ?? 'other';
       if (!map.has(key)) map.set(key, []);
-      map.get(key)!.push(t);
+      map.get(key)!.push({
+        task: t,
+        formattedDate: t.date ? this.formatDate(t.date) : null,
+      });
     }
 
     return Array.from(map.entries()).map(([key, tasks]) => ({
@@ -48,7 +56,7 @@ export class TaskSummary {
     }));
   });
 
-  formatDate(dateStr: string): string {
+  private formatDate(dateStr: string): string {
     const d      = new Date(dateStr + 'T00:00:00');
     const day    = d.getDate();
     const n      = day % 10;
