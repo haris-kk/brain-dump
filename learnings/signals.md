@@ -139,13 +139,90 @@ Use a plain method call if you only need to fire once.
 
 ---
 
+---
+
+### 5. `input()` — signal coming from outside
+
+`input()` is a read-only signal whose value is always set by the caller, never by the component itself. The template reads it the same way as `signal()` — by calling it.
+
+```typescript
+// component
+isEditing    = input(false);   // default false
+initialTitle = input('');      // default empty string
+
+// template — same () syntax as signal()
+{{ isEditing() ? 'Save ↑' : 'Add ↑' }}
+[value]="initialTitle()"
+```
+
+**How to choose between `signal()` and `input()`:**
+
+| | `signal()` | `input()` |
+|---|---|---|
+| Who sets the value | the component itself | the caller (parent or service) |
+| Component can mutate | yes — `.set()`, `.update()` | no — read-only |
+| Use when | internal state the component owns | config passed in from outside |
+
+```typescript
+// ✅ signal — component mutates this itself
+selectedCategory = signal<DumpCategory | undefined>(undefined);
+
+// ✅ input — set once from outside, component only reads it
+isEditing    = input(false);
+initialTitle = input('');
+```
+
+**Setting `input()` on a dynamically created component (no template):**
+
+When using `createComponent()`, you can't use `[prop]="value"` binding. Use `setInput()` instead — it's the programmatic equivalent:
+
+```typescript
+// instead of: inst.isEditing = true  (breaks the input contract)
+sheetRef.setInput('isEditing', true);
+sheetRef.setInput('initialTitle', editTask.title);
+```
+
+`setInput()` must be called **before** `appRef.attachView()` so the first render already sees the values.
+
+---
+
+### `computed()` for template display models
+
+Calling a method in a template fires on **every change detection cycle** — even if nothing changed.
+
+```html
+<!-- ❌ formatDate() called on every CD cycle for every task -->
+<span>{{ formatDate(item.date) }}</span>
+```
+
+Fix: pre-compute the display shape with `computed()` so the work only happens when the source signal changes.
+
+```typescript
+displayTasks = computed(() =>
+  this.tasks().map(task => ({
+    task,
+    formattedDate: task.date ? this.formatDate(task.date) : null,
+  }))
+);
+```
+
+```html
+<!-- ✅ just a property read — no function call -->
+<span>{{ item.formattedDate }}</span>
+```
+
+`computed` re-runs only when `tasks()` changes. The formatted strings are cached until then.
+
+---
+
 ## Quick reference
 
-| | Purpose | Writable? | Lazy? |
-|---|---|---|---|
-| `signal()` | hold state | yes | — |
-| `computed()` | derive state from signals | no | yes |
-| `effect()` | side effects on signal change | — | no |
+| | Purpose | Writable? | Lazy? | Set from outside? |
+|---|---|---|---|---|
+| `signal()` | hold state the component owns | yes | — | technically yes, but avoid |
+| `computed()` | derive state from signals | no | yes | no |
+| `effect()` | side effects on signal change | — | no | — |
+| `input()` | config passed in from the caller | no | — | yes — via binding or `setInput()` |
 
 ## Real usage in this app — `DumpFacade`
 
