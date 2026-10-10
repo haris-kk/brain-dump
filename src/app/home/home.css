@@ -1,116 +1,30 @@
 :host {
-  --bright-blue: oklch(51.01% 0.274 263.83);
-  --electric-violet: oklch(53.18% 0.28 296.97);
-  --french-violet: oklch(47.66% 0.246 305.88);
-  --vivid-pink: oklch(69.02% 0.277 332.77);
-  --hot-red: oklch(61.42% 0.238 15.34);
-  --orange-red: oklch(63.32% 0.24 31.68);
-
-  --gray-900: oklch(19.37% 0.006 300.98);
-  --gray-700: oklch(36.98% 0.014 302.71);
-  --gray-400: oklch(70.9% 0.015 304.04);
-
-  --pill-accent: var(--bright-blue);
-
   display: block;
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
 }
 
-.main {
-  width: 100%;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1rem;
-  box-sizing: border-box;
-}
-
-.content {
-  width: 100%;
-}
-
-.pill-group {
+.shell {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  gap: 0.75rem;
+  height: 100dvh;
+  overflow: hidden;
+  background: #f2f2f7;
 }
 
-.pill {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.5rem;
-  width: 100%;
-  --pill-accent: var(--bright-blue);
-  background: color-mix(in srgb, var(--pill-accent) 5%, transparent);
-  color: var(--pill-accent);
-  padding: 0.75rem 1rem;
-  border-radius: 2rem;
-  border: 0;
-  transition: background 0.3s ease;
-  font-size: 0.875rem;
-  font-weight: 500;
-  line-height: 1.4rem;
-  letter-spacing: -0.00875rem;
-  text-decoration: none;
-  white-space: nowrap;
+.scroll-area {
+  flex: 1;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  padding: max(1.5rem, env(safe-area-inset-top)) 1rem 1rem;
+  padding-left: max(1rem, env(safe-area-inset-left));
+  padding-right: max(1rem, env(safe-area-inset-right));
 }
 
-.pill:hover {
-  background: color-mix(in srgb, var(--pill-accent) 15%, transparent);
-}
-
-.pill-group .pill:nth-child(6n + 1) { --pill-accent: var(--bright-blue); }
-.pill-group .pill:nth-child(6n + 2) { --pill-accent: var(--electric-violet); }
-.pill-group .pill:nth-child(6n + 3) { --pill-accent: var(--french-violet); }
-.pill-group .pill:nth-child(6n + 4),
-.pill-group .pill:nth-child(6n + 5),
-.pill-group .pill:nth-child(6n + 6) { --pill-accent: var(--hot-red); }
-
-.pill-group svg {
-  flex-shrink: 0;
-}
-
-.task-form {
-  width: 100%;
-  margin-bottom: 1rem;
-}
-
-.task-input {
-  width: 100%;
-  box-sizing: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.8);
-  padding: 0.9rem 1rem;
-  font-size: 1rem;
-  color: var(--gray-900);
-  outline: none;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
-}
-
-.task-input::placeholder {
-  color: rgba(0, 0, 0, 0.45);
-}
-
-.task-input:focus {
-  border-color: var(--bright-blue);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--bright-blue) 20%, transparent);
-}
-
-@media (max-width: 480px) {
-  .main {
-    padding: 0.75rem;
-  }
-
-  .task-form {
-    margin-bottom: 0.75rem;
-  }
-
-  .task-input {
-    padding: 0.8rem 0.9rem;
-    font-size: 0.95rem;
-  }
+.input-bar {
+  padding: 0.625rem max(1rem, env(safe-area-inset-right)) max(0.75rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left));
+  background: rgba(242, 242, 247, 0.88);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
 }

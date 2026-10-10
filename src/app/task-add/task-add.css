@@ -1,0 +1,34 @@
+:host {
+  --bright-blue: oklch(51.01% 0.274 263.83);
+  display: block;
+}
+
+.task-form {
+  width: 100%;
+}
+
+.task-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 0.8rem 1.1rem;
+  font-size: 1rem; /* must stay ≥16px — iOS zooms in if smaller */
+  font-family: inherit;
+  color: oklch(19.37% 0.006 300.98);
+  outline: none;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.2s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.task-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+
+.task-input:focus {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--bright-blue) 25%, transparent),
+              0 1px 3px rgba(0, 0, 0, 0.1);
+}
