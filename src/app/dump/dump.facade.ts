@@ -34,4 +34,8 @@ export class DumpFacade {
   removeTask(index: number) {
     this.tasks.update(current => current.filter((_, i) => i !== index));
   }
+
+  updateTask(index: number, task: { title: string; category?: DumpCategory; duration?: DumpDuration; date?: string; link?: string }) {
+    this.tasks.update(current => current.map((t, i) => i === index ? { ...t, ...task } : t));
+  }
 }

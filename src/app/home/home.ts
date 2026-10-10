@@ -12,4 +12,9 @@ import { TaskList } from '../task-list/task-list';
 export class Home {
   facade       = inject(DumpFacade);
   sheetService = inject(SheetService);
+
+  editTask(index: number) {
+    const task = this.facade.tasks()[index];
+    this.sheetService.open(task, index);
+  }
 }

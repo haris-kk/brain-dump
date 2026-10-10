@@ -17,11 +17,13 @@ export class TaskSheet {
   }>();
   closed = output<void>();
 
+  isEditing         = false;
+  initialTitle      = '';
   selectedCategory: DumpCategory | undefined = undefined;
   selectedDuration: DumpDuration | undefined = undefined;
   showDetails = false;
-  detailDate = '';
-  detailLink = '';
+  detailDate  = '';
+  detailLink  = '';
 
   categories = [
     { label: 'Work',   value: 'work'   as DumpCategory, color: '#007AFF' },

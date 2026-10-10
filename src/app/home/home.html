@@ -3,6 +3,7 @@
     <app-task-list
       [tasks]="facade.tasks()"
       (taskRemoved)="facade.removeTask($event)"
+      (taskEdit)="editTask($event)"
     />
   </div>
 

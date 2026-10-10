@@ -8,6 +8,7 @@
       class="sheet-input"
       type="text"
       #taskInput
+      [value]="initialTitle"
       placeholder="Brain dump..."
       autocorrect="on"
       autocapitalize="sentences"
@@ -62,6 +63,6 @@
       </div>
     }
 
-    <button class="add-btn" type="submit">Add ↑</button>
+    <button class="add-btn" type="submit">{{ isEditing ? 'Save ↑' : 'Add ↑' }}</button>
   </form>
 </div>

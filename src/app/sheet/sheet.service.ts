@@ -6,6 +6,7 @@ import {
   inject,
   Injectable,
 } from '@angular/core';
+import { Dump } from '../dump/dump.model';
 import { DumpFacade } from '../dump/dump.facade';
 import { TaskSheet } from '../task-sheet/task-sheet';
 
@@ -16,24 +17,42 @@ export class SheetService {
   private facade    = inject(DumpFacade);
   private sheetRef: ComponentRef<TaskSheet> | null = null;
 
-  open() {
-    if (this.sheetRef) return; // already open, don't create twice
+  open(editTask?: Dump, editIndex?: number) {
+    if (this.sheetRef) return;
 
     // 1. create in memory — give it access to all services
     this.sheetRef = createComponent(TaskSheet, {
       environmentInjector: this.injector,
     });
 
-    // 2. wire up outputs before attaching
+    // 2. pre-fill for edit mode before attaching
+    if (editTask) {
+      const inst = this.sheetRef.instance;
+      inst.isEditing     = true;
+      inst.initialTitle  = editTask.title;
+      inst.selectedCategory = editTask.category;
+      inst.selectedDuration = editTask.duration;
+      inst.detailDate    = editTask.date ?? '';
+      inst.detailLink    = editTask.link ?? '';
+      if (editTask.date || editTask.duration || editTask.link) {
+        inst.showDetails = true;
+      }
+    }
+
+    // 3. wire up outputs
     this.sheetRef.instance.closed.subscribe(() => this.close());
     this.sheetRef.instance.taskAdded.subscribe(({ title, category, duration, date, link }) => {
-      this.facade.addTask(title, category, duration, date, link);
+      if (editIndex !== undefined) {
+        this.facade.updateTask(editIndex, { title, category, duration, date, link });
+      } else {
+        this.facade.addTask(title, category, duration, date, link);
+      }
     });
 
-    // 3. tell Angular to watch it for changes
+    // 4. tell Angular to watch it for changes
     this.appRef.attachView(this.sheetRef.hostView);
 
-    // 4. put it in the DOM, outside app-root
+    // 5. put it in the DOM, outside app-root
     document.body.appendChild(this.sheetRef.location.nativeElement);
   }
 

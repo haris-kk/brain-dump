@@ -8,8 +8,9 @@ import { Dump } from '../dump/dump.model';
   styleUrl: './task-list.css',
 })
 export class TaskList {
-  tasks = input.required<Dump[]>();
+  tasks       = input.required<Dump[]>();
   taskRemoved = output<number>();
+  taskEdit    = output<number>();
 
   categoryColors: Record<string, string> = {
     work:   '#007AFF',
