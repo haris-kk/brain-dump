@@ -12,12 +12,43 @@
   position: relative;
 }
 
+.top-bar {
+  display: flex;
+  justify-content: flex-end;
+  padding: max(0.75rem, env(safe-area-inset-top)) 1rem 0;
+}
+
+.view-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.06);
+  color: rgba(0, 0, 0, 0.45);
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, transform 0.1s ease;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.view-btn.active {
+  background: #007AFF;
+  color: white;
+}
+
+.view-btn:active {
+  transform: scale(0.9);
+}
+
 .scroll-area {
   flex: 1;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
-  padding: max(1.5rem, env(safe-area-inset-top)) 1rem max(5rem, calc(env(safe-area-inset-bottom) + 5rem));
+  padding: 1rem 1rem max(5rem, calc(env(safe-area-inset-bottom) + 5rem));
 }
 
 .fab {

@@ -1,0 +1,24 @@
+@if (groups().length === 0) {
+  <p class="empty">Nothing here yet.</p>
+} @else {
+  @for (group of groups(); track group.category) {
+    <div class="section">
+      <div class="section-header">
+        <span class="section-dot" [style.background]="group.color"></span>
+        <span class="section-label" [style.color]="group.color">{{ group.label }}</span>
+        <span class="section-count">{{ group.tasks.length }}</span>
+      </div>
+
+      <div class="task-list">
+        @for (task of group.tasks; track task.title) {
+          <div class="task-row">
+            <span class="task-title">{{ task.title }}</span>
+            @if (task.date) {
+              <span class="task-date">{{ formatDate(task.date) }}</span>
+            }
+          </div>
+        }
+      </div>
+    </div>
+  }
+}
