@@ -1,0 +1,17 @@
+{
+  "name": "BrainDump",
+  "short_name": "BrainDump",
+  "display": "standalone",
+  "scope": "./",
+  "start_url": "./",
+  "theme_color": "#000000",
+  "background_color": "#000000",
+  "icons": [
+    {
+      "src": "icons/brain-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable any"
+    }
+  ]
+}
