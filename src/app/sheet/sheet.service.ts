@@ -20,26 +20,23 @@ export class SheetService {
   open(editTask?: Dump, editIndex?: number) {
     if (this.sheetRef) return;
 
-    // 1. create in memory — give it access to all services
     this.sheetRef = createComponent(TaskSheet, {
       environmentInjector: this.injector,
     });
 
-    // 2. pre-fill for edit mode before attaching
     if (editTask) {
       const inst = this.sheetRef.instance;
-      inst.isEditing     = true;
-      inst.initialTitle  = editTask.title;
+      this.sheetRef.setInput('isEditing', true);
+      this.sheetRef.setInput('initialTitle', editTask.title);
       inst.selectedCategory = editTask.category;
       inst.selectedDuration = editTask.duration;
-      inst.detailDate    = editTask.date ?? '';
-      inst.detailLink    = editTask.link ?? '';
+      inst.detailDate       = editTask.date ?? '';
+      inst.detailLink       = editTask.link ?? '';
       if (editTask.date || editTask.duration || editTask.link) {
         inst.showDetails = true;
       }
     }
 
-    // 3. wire up outputs
     this.sheetRef.instance.closed.subscribe(() => this.close());
     this.sheetRef.instance.taskAdded.subscribe(({ title, category, duration, date, link }) => {
       if (editIndex !== undefined) {
@@ -49,10 +46,7 @@ export class SheetService {
       }
     });
 
-    // 4. tell Angular to watch it for changes
     this.appRef.attachView(this.sheetRef.hostView);
-
-    // 5. put it in the DOM, outside app-root
     document.body.appendChild(this.sheetRef.location.nativeElement);
   }
 

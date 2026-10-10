@@ -1,4 +1,4 @@
-import { Component, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { DumpCategory, DumpDuration } from '../dump/dump.model';
 
 @Component({
@@ -17,8 +17,9 @@ export class TaskSheet {
   }>();
   closed = output<void>();
 
-  isEditing         = false;
-  initialTitle      = '';
+  isEditing    = input(false);
+  initialTitle = input('');
+
   selectedCategory: DumpCategory | undefined = undefined;
   selectedDuration: DumpDuration | undefined = undefined;
   showDetails = false;
