@@ -1,9 +1,10 @@
 import { Component, computed, input, output } from '@angular/core';
 import { Dump } from '../dump/dump.model';
+import { SwipeDeleteDirective } from './swipe-delete.directive';
 
 @Component({
   selector: 'app-task-list',
-  imports: [],
+  imports: [SwipeDeleteDirective],
   templateUrl: './task-list.html',
   styleUrl: './task-list.css',
 })
